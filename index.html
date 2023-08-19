@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>あなたのＨＰタイトル</title>
+    <meta name="description" content="説明文">
+    <meta name="keywords" content="キーワード">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+  </head>
+  <body>
+  <script src="sketch.js"></script>
+  <script src="//toolness.github.io/p5.js-widget/p5-widget.js"></script>
+    <div id="outer">
+      <header>
+        <div id="logo"><h1>卒業研究用教材</h1></div>
+      </header>
+      <div id="content">
+        <main>
+          <div id="inner">
+            <h2>三角関数を用いてアナログ時計を作る</h2>
+            <h3>初めに</h3>
+            <p>今回は、三角関数の知識を用いて、アナログ時計のプログラムを作成します。</p>
+            <p>　</p>
+            <h3>秒数を表示する</h3>
+            <p>アナログ時計に必要な針を作りましょう。まずは秒数を表す秒針を作っていきます。</p>
+            <p>現在の時刻の秒数を入手するには、「second()」と書きます。</p>
+            <p>実際に、現在の分を表示してみましょう。「text()」は、かっこ内の値を表示するプログラムです。</p>
+            <p>text(文字 ,x座標 ,y座標)で指定した座標に文字を表示します。</p>
+            <p>書けたら、右上の「Play」を押して左のウィンドウを見てみましょう。</p>
+            <script type="text/p5" data-autoplay data-preview-width="300">
+function setup() {
+    createCanvas(200, 200);
+}
+                  
+function draw() {
+    background(240);
+    text("秒数", 100, 100); //「"秒数"」を「second()」に書き換えてプログラムを完成させましょう
+}
+                  
+            </script>
+            <!-- 折り畳み展開ポインタ -->
+            <div onclick="obj=document.getElementById('open').style; obj.display=(obj.display=='none')?'block':'none';">
+            <a style="cursor:pointer;">▼ クリックで答えを表示</a>
+            </div>
+            <!--// 折り畳み展開ポインタ -->
+
+            <!-- 折り畳まれ部分 -->
+            <div class="answer" id="open" style="display:none;clear:both;">
+            <pre>
+function setup() {
+    createCanvas(200, 200);
+}
+                  
+function draw() {
+    background(240);
+    text(<div class="program">second()</div>, 100, 100);
+}
+            </pre>
+            </div>
+            <!--// 折り畳まれ部分 -->
+            <p>表示されました。実際の秒数と合っていることを確認してみましょう。</p>
+            <p>この数値をもとに、秒針を描いていきます。</p>
+            <p>　</p>
+            <h3>針の角度を表示する</h3>
+            <p>秒数はもちろん、秒針の角度と対応しています。</p>
+            <p>例えば、15秒なら90°、30秒なら180°という風に対応しています。</p>
+            <p>また、プログラムで角度を記述する際にはよく、弧度法によって角度を表現します。</p>
+            <p>弧度法では、半径が１の扇型の中心角と、その弧の長さを対応させて角度を表現しています（下図参照）。</p>
+
+            <div class="imgbox">
+              <img src="images/kyouzai1.png" width="1000">
+            </div>
+
+            <p>では、秒数を角度に変換して表示するプログラムを書いてみましょう。</p>
+            <p>60秒で針が一周するので、1秒につき、針の角度は6°（=π/30）回転することになります。</p>
+            <p>ということは、「 second() × (π/30) 」が、秒針の角度になることが分かります。</p>
+            <p>このように、秒数を秒針の角度に変換し、先ほどと同じく表示してみましょう。</p>
+            <p>また、プログラムを記述する際は、積の記号は「*」、商の記号は「/」を使うことに注意してください。</p>
+            <p>円周率は、「PI」で取得できます。</p>
+            <script type="text/p5" data-autoplay data-preview-width="300">
+function setup() {
+    createCanvas(200, 200);
+}
+                  
+function draw() {
+    background(240);
+    text("角度を求める式", 100, 100) //「"角度を求める式"」を「second()*(PI/30)」に書き換えてプログラムを完成させましょう
+}
+            </script>
+            <!-- 折り畳み展開ポインタ -->
+            <div onclick="obj=document.getElementById('open2').style; obj.display=(obj.display=='none')?'block':'none';">
+            <a style="cursor:pointer;">▼ クリックで答えを表示</a>
+            </div>
+            <!--// 折り畳み展開ポインタ -->
+
+            <!-- 折り畳まれ部分 -->
+            <div class="answer" id="open2" style="display:none;clear:both;">
+            <pre>
+function setup() {
+    createCanvas(200, 200);
+}
+                  
+function draw() {
+    background(240);
+    text(<div class="program">second() * (PI/30)</div>, 100, 100);
+}
+            </pre>
+            </div>
+            <!--// 折り畳まれ部分 -->
+            <p>角度を取得できました。</p>
+            <p>　</p>
+            <h3>秒針の表示</h3>
+            <p>ここからが本番です！</p>
+            <p>角度をもとに、針となる線分を描画します。</p>
+            <p>線分を描画するには、その線分の両端の座標を指定する必要があります。</p>
+            <p>2つのうち1つの端は、中心に固定すればよいでしょう。</p>
+            <p>では、もう1つの端の座標はどのように求めればよいでしょうか。</p>
+            <p>ここで三角関数の出番です。</p>
+            <p>cosθは、単位円周上の点で、それと原点とを結んだ直線とのなす角がθの点のx座標を表し、sinθはy座標を表します。</p>
+            <p>これを活かすと、針の端の座標は、単位円を半径だけ拡大して、</p>
+            <p>((半径) * cosθ, (半径) * sinθ)</p>
+            <p>と表せることが分かります（下図参照）。</p>
+            <div class="imgbox">
+              <img src="images/kyouzai2.png" width="1000">
+            </div>
+            <p>ただ、今回は、中心の座標は原点(0, 0)ではなく(100, 100)なので、平行移動して、もとめる座標は、</p>
+            <p>((半径) * cosθ + 100, (半径) * sinθ + 100)</p>
+            <p>となります。</p>
+            <p>　</p>
+            <p>実際にプログラムを書いてみましょう。</p>
+            <p>線を引くために、line()というプログラムを書きます。</p>
+            <p>（x1, y1）から (x2, y2) に線を引くときは、line(x1 , y1, x2, y2)と書きます。</p>
+            <p>x1 に100、y1に100（画面の中心の座標）を入れ、x2とy2に先ほど求めた式を入れてみましょう。</p>
+            <p>半径は50にしましょう。</p>
+            <script type="text/p5" data-autoplay data-preview-width="300">
+function setup() {
+    createCanvas(200, 200);
+}
+
+function draw() {
+    background(220);
+    line(100, 100, "x座標の計算式", "y座標の計算式");
+}
+
+/*
+ヒント
+
+（（半径）*　cosθ + 100, (半径) * sinθ + 100）
+の式に、
+
+（半径）= 50
+θ = （second()*(PI/30)）
+
+を入れる
+*/
+
+            </script>
+            <!-- 折り畳み展開ポインタ -->
+            <div onclick="obj=document.getElementById('open3').style; obj.display=(obj.display=='none')?'block':'none';">
+            <a style="cursor:pointer;">▼ クリックで答えを表示</a>
+            </div>
+            <!--// 折り畳み展開ポインタ -->
+
+            <!-- 折り畳まれ部分 -->
+            <div class="answer" id="open3" style="display:none;clear:both;">
+            <pre>
+function setup() {
+    createCanvas(200, 200);
+}
+                  
+function draw() {
+    background(240);
+    line(100, 100, <div class="program">50 * cos(second() * (PI/30)) + 100</div>, <div class="program">50 * sin(second() * (PI/30)) + 100</div>);
+}
+            </pre>
+            </div>
+            <!--// 折り畳まれ部分 -->
+            <p>針が回転しているのが分かると思います。</p>
+            <p>しかし、実際の秒数と比べてみると、少しずれて回っていると思います。</p>
+            <p>これは、座標軸の取り方が、普段つかっているものとは異なるためです。</p>
+            <p>ややこしいことに、多くのプログラミング言語では、y座標が下に行くほど大きくなるように軸をとっています。</p>
+            <p>そこで、θに代入する角から、π/2 を引いてみることを考えましょう（下図参照）。</p>
+            <div class="imgbox">
+              <img src="images/kyouzai3.png" width="1000">
+            </div>
+            <div class="imgbox">
+              <img src="images/kyouzai4.png" width="1000">
+            </div>
+            <p>このように、先ほど書いたプログラムの、cos()とsin()に入れた角度から、π/2 を引いてみましょう。</p>
+            <script type="text/p5" data-autoplay data-preview-width="300">
+function setup() {
+    createCanvas(200, 200);
+}
+
+function draw() {
+    background(220);
+    line(100, 100, 50 * cos(second() * (PI/30)) + 100, 50 * sin(second() * (PI/30)) + 100);
+}
+
+</script>
+            <!-- 折り畳み展開ポインタ -->
+            <div onclick="obj=document.getElementById('open4').style; obj.display=(obj.display=='none')?'block':'none';">
+            <a style="cursor:pointer;">▼ クリックで答えを表示</a>
+            </div>
+            <!--// 折り畳み展開ポインタ -->
+  
+            <!-- 折り畳まれ部分 -->
+            <div class="answer" id="open4" style="display:none;clear:both;">
+            <pre>
+function setup() {
+    createCanvas(200, 200);
+}
+                  
+function draw() {
+    background(240);
+    line(100, 100, 50 * cos(second() * (PI/30) <div class="program">- (PI/2)</div>) + 100, 50 * sin(second() * (PI/30) <div class="program">- (PI/2)</div>) + 100);
+}
+            </pre>
+            </div>
+            <!--// 折り畳まれ部分 -->
+            <p>これで秒針ができました！</p>
+            <p>　</p>
+            <h3>長針・短針の作成</h3>
+            <p>あとは、長針と短針も同じ要領で追加してみましょう。</p>
+            <p>時間はhour()、分はminute()で取得できます。</p>
+            <p>長針は1分につき6°（=π/30）回転し、</p>
+            <p>短針は1時間につき30°（=π/6）回転します（本来は1分ごとに変化しますが簡単のため省略します）。</p>
+            <p>また、長針と短針の長さは秒針と変えて、</p>
+            <p>長針は40、短針は25にしてみましょう。</p>
+            <p>これらを踏まえて、アナログ時計を完成させましょう！</p>
+            <script type="text/p5" data-autoplay data-preview-width="300">
+function setup() {
+    createCanvas(200, 200);
+}
+
+function draw() {
+    background(220);
+    line(100, 100, 50 * cos(second() * (PI/30) - PI/2) + 100, 50 * sin(second() * (PI/30) - PI/2) + 100);
+    line(100, 100, "長針の端のx座標", "長針の端のy座標");
+    line(100, 100, "短針の端のx座標", "短針の端のy座標");
+}
+</script>
+            <!-- 折り畳み展開ポインタ -->
+            <div onclick="obj=document.getElementById('open5').style; obj.display=(obj.display=='none')?'block':'none';">
+            <a style="cursor:pointer;">▼ クリックで答えを表示</a>
+            </div>
+            <!--// 折り畳み展開ポインタ -->
+    
+            <!-- 折り畳まれ部分 -->
+            <div class="answer" id="open5" style="display:none;clear:both;">
+            <pre>
+function setup() {
+    createCanvas(200, 200);
+}
+                  
+function draw() {
+    background(240);
+    line(100, 100, 50 * cos(second() * (PI/30) - (PI/2)) + 100, 50 * sin(second() * (PI/30) - (PI/2)) + 100);
+    <div class="program">line(100, 100, 40 * cos(minute() * (PI/30) - (PI/2)) + 100, 50 * sin(minute() * (PI/30) - (PI/2)) + 100);</div>
+    <div class="program">line(100, 100, 25 * cos(hour()   * (PI/6)  - (PI/2)) + 100, 50 * sin(hour()   * (PI/6)  - (PI/2)) + 100);</div>
+}
+            </pre>
+            </div>
+            <!--// 折り畳まれ部分 -->
+            <p>これで完成です。お疲れさまでした！</p>
+            <p>　</p>
+            <h3>終わりに</h3>
+            <p>いかがでしたでしょうか。アナログ時計の制作を通して、三角関数・数学をより身近に感じていただけたらうれしいです。</p>
+            <P>最後まで読んでいただき、ありがとうございました。</P>
+          </div>
+        </main>
+        <!--
+        <aside>
+          <div id="aside-inner">
+            <nav id="left">
+              <div class="title">menu</div>
+              <div class="side">
+                <ul>
+                  <li>記事ページへのリンク</li>
+                  <li>記事ページへのリンク</li>
+                </ul>
+              </div>
+            </nav>
+            <nav id="right">
+              <div class="title">menu</div>
+              <div class="side">
+                <ul>
+                  <li>記事ページへのリンク</li>
+                  <li>記事ページへのリンク</li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </aside>
+        -->
+      </div>
+      <footer></footer>
+    </div>
+  </body>
+</html>
