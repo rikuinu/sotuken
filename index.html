@@ -272,8 +272,8 @@ function setup() {
 function draw() {
     background(240);
     line(100, 100, 50 * cos(second() * (PI/30) - (PI/2)) + 100, 50 * sin(second() * (PI/30) - (PI/2)) + 100);
-    <div class="program">line(100, 100, 40 * cos(minute() * (PI/30) - (PI/2)) + 100, 50 * sin(minute() * (PI/30) - (PI/2)) + 100);</div>
-    <div class="program">line(100, 100, 25 * cos(hour()   * (PI/6)  - (PI/2)) + 100, 50 * sin(hour()   * (PI/6)  - (PI/2)) + 100);</div>
+    <div class="program">line(100, 100, 40 * cos(minute() * (PI/30) - (PI/2)) + 100, 40 * sin(minute() * (PI/30) - (PI/2)) + 100);</div>
+    <div class="program">line(100, 100, 25 * cos(hour()   * (PI/6)  - (PI/2)) + 100, 25 * sin(hour()   * (PI/6)  - (PI/2)) + 100);</div>
 }
             </pre>
             </div>
